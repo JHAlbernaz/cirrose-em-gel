@@ -13,14 +13,14 @@ public class DaoFactory {
     }
 
     public static ComentarioDao crateComentarioDao() {
-        return new ComentarioDaoJDBC();
+        return new ComentarioDaoJDBC(DB.getConnection());
     }
 
     public static TextoDao crateTextoDao() {
-        return new TextoDaoJDBC();
+        return new TextoDaoJDBC(DB.getConnection());
     }
 
     public static CurtidaDao crateCurtidaDao() {
-        return new CurtidaDaoJDBC();
+        return new CurtidaDaoJDBC(DB.getConnection());
     }
 }

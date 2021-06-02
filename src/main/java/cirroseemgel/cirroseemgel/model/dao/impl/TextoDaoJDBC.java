@@ -4,9 +4,16 @@ import cirroseemgel.cirroseemgel.model.dao.TextoDao;
 import cirroseemgel.cirroseemgel.model.entities.Comentario;
 import cirroseemgel.cirroseemgel.model.entities.Texto;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class TextoDaoJDBC implements TextoDao {
+
+    private Connection conn;
+
+    public TextoDaoJDBC(Connection conn) {
+        this.conn = conn;
+    }
 
     @Override
     public void insert(Texto texto) {
