@@ -1,4 +1,4 @@
-package cirroseemgel.cirroseemgel.Entities;
+package cirroseemgel.cirroseemgel.model.entities;
 
 import java.time.LocalDate;
 
