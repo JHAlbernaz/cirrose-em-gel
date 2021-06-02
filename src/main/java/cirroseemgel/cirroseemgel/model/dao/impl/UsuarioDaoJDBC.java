@@ -5,6 +5,7 @@ import cirroseemgel.cirroseemgel.db.DbException;
 import cirroseemgel.cirroseemgel.model.dao.UsuarioDao;
 import cirroseemgel.cirroseemgel.model.entities.Comentario;
 import cirroseemgel.cirroseemgel.model.entities.Usuario;
+import cirroseemgel.cirroseemgel.model.mappers.UsuarioMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,9 +16,11 @@ import java.util.List;
 public class UsuarioDaoJDBC implements UsuarioDao {
 
     private Connection conn;
+    private UsuarioMapper userMapper;
 
     public UsuarioDaoJDBC(Connection conn) {
         this.conn = conn;
+        this.userMapper = new UsuarioMapper();
     }
 
     @Override
@@ -61,7 +64,25 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     @Override
     public Usuario findById(String id) {
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT * FROM USUARIO " +
+                    "WHERE id = ?"
+            );
+            st.setString(1, id);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                return userMapper.apply(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override

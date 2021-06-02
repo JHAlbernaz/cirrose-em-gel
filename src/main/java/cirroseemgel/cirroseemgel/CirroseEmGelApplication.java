@@ -18,6 +18,5 @@ public class CirroseEmGelApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CirroseEmGelApplication.class, args);
 
-
 	}
 }

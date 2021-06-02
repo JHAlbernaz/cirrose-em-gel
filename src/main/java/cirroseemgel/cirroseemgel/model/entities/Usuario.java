@@ -20,6 +20,9 @@ public class Usuario {
         this.estaAssinando = estaAssinando;
     }
 
+    public Usuario() {
+    }
+
     public String getId() {
         return id;
     }
