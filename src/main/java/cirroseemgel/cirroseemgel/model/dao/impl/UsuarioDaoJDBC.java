@@ -54,7 +54,22 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     @Override
     public void update(Usuario usuario) {
-
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("UPDATE USUARIO " +
+                    "SET nome = ?, senha = ?, assinando = ? " +
+                    "WHERE id = ?"
+            );
+            st.setString(1, usuario.getNome());
+            st.setString(2, usuario.getSenha());
+            st.setBoolean(3, usuario.isEstaAssinando());
+            st.setString(4, usuario.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
