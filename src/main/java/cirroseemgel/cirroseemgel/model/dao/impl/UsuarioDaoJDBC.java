@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class UsuarioDaoJDBC implements UsuarioDao {
 
@@ -111,6 +110,25 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
     @Override
     public Usuario findByEmailAndPassword(String email, String password) {
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT * FROM USUARIO " +
+                            "WHERE email = ? and senha = ?"
+            );
+            st.setString(1, email);
+            st.setString(2, password);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                return userMapper.apply(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 }
