@@ -17,6 +17,13 @@ public class CirroseEmGelApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CirroseEmGelApplication.class, args);
-
+		Usuario usuario = new Usuario();
+		usuario.setNome("João Henrique");
+		usuario.setEmail("joaohbalbernaz@gmail.com");
+		usuario.setId("asd123");
+		usuario.setSenha("1234");
+		usuario.setEstaAssinando(false);
+		UsuarioDao usuarioDao = DaoFactory.crateUsuarioDao();
+		usuarioDao.insert(usuario);
 	}
 }

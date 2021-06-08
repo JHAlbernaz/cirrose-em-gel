@@ -1,6 +1,7 @@
 package cirroseemgel.cirroseemgel.model.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Texto {
 
@@ -16,9 +17,9 @@ public class Texto {
 
     private int numeroVisualizacoes;
 
-    private LocalDate dataPublicacao;
+    private LocalDateTime dataPublicacao;
 
-    public Texto(String id, String titulo, String descricao, String conteudo, String urlImagem, int numeroVisualizacoes, LocalDate dataPublicacao) {
+    public Texto(String id, String titulo, String descricao, String conteudo, String urlImagem, int numeroVisualizacoes, LocalDateTime dataPublicacao) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -26,6 +27,9 @@ public class Texto {
         this.urlImagem = urlImagem;
         this.numeroVisualizacoes = numeroVisualizacoes;
         this.dataPublicacao = dataPublicacao;
+    }
+
+    public Texto() {
     }
 
     public String getId() {
@@ -76,11 +80,11 @@ public class Texto {
         this.numeroVisualizacoes = numeroVisualizacoes;
     }
 
-    public LocalDate getDataPublicacao() {
+    public LocalDateTime getDataPublicacao() {
         return dataPublicacao;
     }
 
-    public void setDataPublicacao(LocalDate dataPublicacao) {
+    public void setDataPublicacao(LocalDateTime dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
     }
 }

@@ -3,7 +3,6 @@ package cirroseemgel.cirroseemgel.model.dao.impl;
 import cirroseemgel.cirroseemgel.db.DB;
 import cirroseemgel.cirroseemgel.db.DbException;
 import cirroseemgel.cirroseemgel.model.dao.UsuarioDao;
-import cirroseemgel.cirroseemgel.model.entities.Comentario;
 import cirroseemgel.cirroseemgel.model.entities.Usuario;
 import cirroseemgel.cirroseemgel.model.mappers.UsuarioMapper;
 
@@ -11,15 +10,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class UsuarioDaoJDBC implements UsuarioDao {
 
     private Connection conn;
-    private UsuarioMapper userMapper;
 
     public UsuarioDaoJDBC(Connection conn) {
         this.conn = conn;
-        this.userMapper = new UsuarioMapper();
     }
 
     @Override
@@ -32,11 +30,12 @@ public class UsuarioDaoJDBC implements UsuarioDao {
                     "VALUES " +
                     "(?, ?, ?, ?, ?)"
             );
-            st.setString(1, usuario.getId());
+            st.setString(1, UUID.randomUUID().toString());
             st.setString(2, usuario.getNome());
             st.setString(3, usuario.getEmail());
             st.setString(4, usuario.getSenha());
             st.setBoolean(5, usuario.isEstaAssinando());
+
 
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
@@ -97,7 +96,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
             st.setString(1, id);
             rs = st.executeQuery();
             while (rs.next()) {
-                return userMapper.apply(rs);
+                return UsuarioMapper.apply(rs);
             }
             return null;
         } catch (SQLException e) {
@@ -121,7 +120,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
             st.setString(2, password);
             rs = st.executeQuery();
             while (rs.next()) {
-                return userMapper.apply(rs);
+                return UsuarioMapper.apply(rs);
             }
             return null;
         } catch (SQLException e) {

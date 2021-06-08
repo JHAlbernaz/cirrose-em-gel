@@ -12,6 +12,6 @@ public interface TextoDao {
     void deleteById(String id);
     Texto findById(String id);
     List<Texto> findAll();
-    List<Texto> findLatestTexts();
+    List<Texto> findLatestTexts(int numberOfTextsWanted);
 
 }
