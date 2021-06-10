@@ -28,7 +28,7 @@ public class ComentarioDaoJDBC implements ComentarioDao {
                     "INSERT INTO COMENTARIO " +
                             "(id, conteudo, data_comentario, id_texto, id_usuario) " +
                             "VALUES " +
-                            "(?, ?, ?, ?)"
+                            "(?, ?, ?, ?, ?)"
             );
             st.setString(1, UUID.randomUUID().toString());
             st.setString(2, comentario.getConteudo());
