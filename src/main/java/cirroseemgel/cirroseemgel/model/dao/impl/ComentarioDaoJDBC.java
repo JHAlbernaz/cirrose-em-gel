@@ -4,11 +4,10 @@ import cirroseemgel.cirroseemgel.db.DB;
 import cirroseemgel.cirroseemgel.db.DbException;
 import cirroseemgel.cirroseemgel.model.dao.ComentarioDao;
 import cirroseemgel.cirroseemgel.model.entities.Comentario;
+import cirroseemgel.cirroseemgel.model.mappers.ComentarioMapper;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,11 +49,6 @@ public class ComentarioDaoJDBC implements ComentarioDao {
     }
 
     @Override
-    public void update(Comentario comentario) {
-
-    }
-
-    @Override
     public void deleteById(String id) {
         PreparedStatement st = null;
         try {
@@ -70,11 +64,49 @@ public class ComentarioDaoJDBC implements ComentarioDao {
 
     @Override
     public List<Comentario> findByUsuarioId(String usuarioId) {
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT * FROM COMENTARIO " +
+                            "WHERE id_usuario = ?"
+            );
+            st.setString(1, usuarioId);
+            List<Comentario> comentarios = new ArrayList<>();
+            rs = st.executeQuery();
+            while (rs.next()) {
+                comentarios.add(ComentarioMapper.apply(rs));
+            }
+            return comentarios;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override
     public List<Comentario> findByTextoId(String textoId) {
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT * FROM COMENTARIO " +
+                            "WHERE id_texto = ?"
+            );
+            st.setString(1, textoId);
+            List<Comentario> comentarios = new ArrayList<>();
+            rs = st.executeQuery();
+            while (rs.next()) {
+                comentarios.add(ComentarioMapper.apply(rs));
+            }
+            return comentarios;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 }
