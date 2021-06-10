@@ -1,53 +1,25 @@
 package cirroseemgel.cirroseemgel.model.entities;
 
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.time.LocalDateTime;
+
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Curtida {
 
     private String id;
 
-    private LocalDate data;
+    private LocalDateTime data;
 
     private Texto texto;
 
     private Usuario autor;
 
-    public Curtida(String id, LocalDate data, Texto texto, Usuario autor) {
-        this.id = id;
-        this.data = data;
-        this.texto = texto;
-        this.autor = autor;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public Texto getTexto() {
-        return texto;
-    }
-
-    public void setTexto(Texto texto) {
-        this.texto = texto;
-    }
-
-    public Usuario getAutor() {
-        return autor;
-    }
-
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
-    }
 }
