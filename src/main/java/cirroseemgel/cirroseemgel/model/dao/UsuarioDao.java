@@ -12,5 +12,6 @@ public interface UsuarioDao {
     void deleteById(String id);
     Usuario findById(String id);
     Usuario findByEmailAndPassword(String email, String password);
+    List<Usuario> findAllUserAssinando();
 
 }

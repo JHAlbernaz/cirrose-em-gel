@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class UsuarioDaoJDBC implements UsuarioDao {
@@ -88,6 +90,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
     public Usuario findById(String id) {
         PreparedStatement st = null;
         ResultSet rs = null;
+        String[] fieldsDesired = {"id", "nome", "email", "senha", "assinando"};
         try {
             st = conn.prepareStatement(
                     "SELECT * FROM USUARIO " +
@@ -96,7 +99,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
             st.setString(1, id);
             rs = st.executeQuery();
             while (rs.next()) {
-                return UsuarioMapper.apply(rs);
+                return UsuarioMapper.apply(rs, fieldsDesired);
             }
             return null;
         } catch (SQLException e) {
@@ -111,6 +114,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
     public Usuario findByEmailAndPassword(String email, String password) {
         PreparedStatement st = null;
         ResultSet rs = null;
+        String[] fieldsDesired = {"id", "nome", "email", "senha", "assinando"};
         try {
             st = conn.prepareStatement(
                     "SELECT * FROM USUARIO " +
@@ -120,9 +124,34 @@ public class UsuarioDaoJDBC implements UsuarioDao {
             st.setString(2, password);
             rs = st.executeQuery();
             while (rs.next()) {
-                return UsuarioMapper.apply(rs);
+                return UsuarioMapper.apply(rs, fieldsDesired);
             }
             return null;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
+    public List<Usuario> findAllUserAssinando() {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        String[] fieldsDesired = {"id", "nome","assinando"};
+        try {
+            st = conn.prepareStatement(
+                    "SELECT id, nome, email, assinando FROM USUARIO " +
+                            "WHERE assinando = ?"
+            );
+            st.setBoolean(1, true);
+            rs = st.executeQuery();
+            List<Usuario> usuariosAssinando = new ArrayList<>();
+            while (rs.next()) {
+                usuariosAssinando.add(UsuarioMapper.apply(rs, fieldsDesired));
+            }
+            return usuariosAssinando;
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {

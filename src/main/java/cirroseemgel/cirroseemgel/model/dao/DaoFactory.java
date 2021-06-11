@@ -8,19 +8,19 @@ import cirroseemgel.cirroseemgel.model.dao.impl.UsuarioDaoJDBC;
 
 public class DaoFactory {
 
-    public static UsuarioDao crateUsuarioDao() {
+    public static UsuarioDao createUsuarioDao() {
         return new UsuarioDaoJDBC(DB.getConnection());
     }
 
-    public static ComentarioDao crateComentarioDao() {
+    public static ComentarioDao createComentarioDao() {
         return new ComentarioDaoJDBC(DB.getConnection());
     }
 
-    public static TextoDao crateTextoDao() {
+    public static TextoDao createTextoDao() {
         return new TextoDaoJDBC(DB.getConnection());
     }
 
-    public static CurtidaDao crateCurtidaDao() {
+    public static CurtidaDao createCurtidaDao() {
         return new CurtidaDaoJDBC(DB.getConnection());
     }
 }

@@ -21,8 +21,6 @@ public class Texto {
 
     private String conteudo;
 
-    private String urlImagem;
-
     private int numeroVisualizacoes;
 
     private LocalDateTime dataPublicacao;

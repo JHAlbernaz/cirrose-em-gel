@@ -3,7 +3,6 @@ package cirroseemgel.cirroseemgel.model.dao.impl;
 import cirroseemgel.cirroseemgel.db.DB;
 import cirroseemgel.cirroseemgel.db.DbException;
 import cirroseemgel.cirroseemgel.model.dao.TextoDao;
-import cirroseemgel.cirroseemgel.model.entities.Comentario;
 import cirroseemgel.cirroseemgel.model.entities.Texto;
 import cirroseemgel.cirroseemgel.model.mappers.TextoMapper;
 
@@ -25,19 +24,18 @@ public class TextoDaoJDBC implements TextoDao {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
-                    "INSERT INTO USUARIO " +
-                    "(id, titulo, descricao, conteudo, url_imagem, numero_visualizacoes, data_publicacao) " +
+                    "INSERT INTO TEXTO " +
+                    "(id, titulo, descricao, conteudo, numero_visualizacoes, data_publicacao) " +
                     "VALUES " +
-                    "(?, ?, ?, ?, ?, ?, ?)"
+                    "(?, ?, ?, ?, ?, ?)"
             );
             String id = UUID.randomUUID().toString();
             st.setString(1, id);
             st.setString(2, texto.getTitulo());
             st.setString(3, texto.getDescricao());
             st.setString(4, texto.getConteudo());
-            st.setString(5, texto.getUrlImagem());
-            st.setInt(6, texto.getNumeroVisualizacoes());
-            st.setTimestamp(7, Timestamp.valueOf(texto.getDataPublicacao()));
+            st.setInt(5, texto.getNumeroVisualizacoes());
+            st.setTimestamp(6, Timestamp.valueOf(texto.getDataPublicacao()));
 
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
@@ -58,16 +56,15 @@ public class TextoDaoJDBC implements TextoDao {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("UPDATE TEXTO " +
-                    "SET titulo = ?, descricao = ?, conteudo = ?, imagem_url = ?, numeroVisualizacoes = ?, data_publicacao = ? " +
+                    "SET titulo = ?, descricao = ?, conteudo = ?, numeroVisualizacoes = ?, data_publicacao = ? " +
                     "WHERE id = ?"
             );
             st.setString(1, texto.getTitulo());
             st.setString(2, texto.getDescricao());
             st.setString(3, texto.getConteudo());
-            st.setString(4, texto.getUrlImagem());
-            st.setInt(5, texto.getNumeroVisualizacoes());
-            st.setTimestamp(6, Timestamp.valueOf(texto.getDataPublicacao()));
-            st.setString(7, texto.getId());
+            st.setInt(4, texto.getNumeroVisualizacoes());
+            st.setTimestamp(5, Timestamp.valueOf(texto.getDataPublicacao()));
+            st.setString(6, texto.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -94,6 +91,7 @@ public class TextoDaoJDBC implements TextoDao {
     public Texto findById(String id) {
         PreparedStatement st = null;
         ResultSet rs = null;
+        String[] fields = {"id", "titulo", "descricao", "conteudo", "numero_visualizacoes", "data_publicacao"};
         try {
             st = conn.prepareStatement(
                     "SELECT * FROM TEXTO " +
@@ -102,7 +100,7 @@ public class TextoDaoJDBC implements TextoDao {
             st.setString(1, id);
             rs = st.executeQuery();
             while (rs.next()) {
-                return TextoMapper.apply(rs);
+                return TextoMapper.apply(rs, fields);
             }
             return null;
         } catch (SQLException e) {
@@ -117,6 +115,7 @@ public class TextoDaoJDBC implements TextoDao {
     public List<Texto> findAll() {
         PreparedStatement st = null;
         ResultSet rs = null;
+        String[] fields = {"id", "titulo", "descricao", "conteudo", "numero_visualizacoes", "data_publicacao"};
         try {
             st = conn.prepareStatement(
                     "SELECT * FROM TEXTO"
@@ -124,7 +123,7 @@ public class TextoDaoJDBC implements TextoDao {
             List<Texto> textos = new ArrayList<>();
             rs = st.executeQuery();
             while (rs.next()) {
-                textos.add(TextoMapper.apply(rs));
+                textos.add(TextoMapper.apply(rs, fields));
             }
             return textos;
         } catch (SQLException e) {
@@ -139,9 +138,10 @@ public class TextoDaoJDBC implements TextoDao {
     public List<Texto> findLatestTexts(int numberOfTextsWanted) {
         PreparedStatement st = null;
         ResultSet rs = null;
+        String[] fields = {"id", "titulo", "descricao", "data_publicacao", "numero_visualizacoes"};
         try {
             st = conn.prepareStatement(
-                    "SELECT * FROM TEXTO " +
+                    "SELECT id, titulo, descricao, data_publicacao, numero_visualizacoes FROM TEXTO " +
                     "ORDER BY data_publicacao ASC " +
                     "LIMIT ?"
             );
@@ -149,7 +149,7 @@ public class TextoDaoJDBC implements TextoDao {
             List<Texto> textos = new ArrayList<>();
             rs = st.executeQuery();
             while (rs.next()) {
-                textos.add(TextoMapper.apply(rs));
+                textos.add(TextoMapper.apply(rs, fields));
             }
             return textos;
         } catch (SQLException e) {
