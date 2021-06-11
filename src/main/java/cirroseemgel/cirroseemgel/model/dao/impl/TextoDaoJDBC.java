@@ -91,7 +91,7 @@ public class TextoDaoJDBC implements TextoDao {
     public Texto findById(String id) {
         PreparedStatement st = null;
         ResultSet rs = null;
-        String[] fields = {"id", "titulo", "descricao", "conteudo", "numero_visualizacoes", "data_publicacao"};
+        String[] fieldsDesired = {"id", "titulo", "descricao", "conteudo", "numero_visualizacoes", "data_publicacao"};
         try {
             st = conn.prepareStatement(
                     "SELECT * FROM TEXTO " +
@@ -100,7 +100,7 @@ public class TextoDaoJDBC implements TextoDao {
             st.setString(1, id);
             rs = st.executeQuery();
             while (rs.next()) {
-                return TextoMapper.apply(rs, fields);
+                return TextoMapper.apply(rs, fieldsDesired);
             }
             return null;
         } catch (SQLException e) {
@@ -115,7 +115,7 @@ public class TextoDaoJDBC implements TextoDao {
     public List<Texto> findAll() {
         PreparedStatement st = null;
         ResultSet rs = null;
-        String[] fields = {"id", "titulo", "descricao", "conteudo", "numero_visualizacoes", "data_publicacao"};
+        String[] fieldsDesired = {"id", "titulo", "descricao", "conteudo", "numero_visualizacoes", "data_publicacao"};
         try {
             st = conn.prepareStatement(
                     "SELECT * FROM TEXTO"
@@ -123,7 +123,7 @@ public class TextoDaoJDBC implements TextoDao {
             List<Texto> textos = new ArrayList<>();
             rs = st.executeQuery();
             while (rs.next()) {
-                textos.add(TextoMapper.apply(rs, fields));
+                textos.add(TextoMapper.apply(rs, fieldsDesired));
             }
             return textos;
         } catch (SQLException e) {
@@ -138,7 +138,7 @@ public class TextoDaoJDBC implements TextoDao {
     public List<Texto> findLatestTexts(int numberOfTextsWanted) {
         PreparedStatement st = null;
         ResultSet rs = null;
-        String[] fields = {"id", "titulo", "descricao", "data_publicacao", "numero_visualizacoes"};
+        String[] fieldsDesired = {"id", "titulo", "descricao", "data_publicacao", "numero_visualizacoes"};
         try {
             st = conn.prepareStatement(
                     "SELECT id, titulo, descricao, data_publicacao, numero_visualizacoes FROM TEXTO " +
@@ -149,7 +149,7 @@ public class TextoDaoJDBC implements TextoDao {
             List<Texto> textos = new ArrayList<>();
             rs = st.executeQuery();
             while (rs.next()) {
-                textos.add(TextoMapper.apply(rs, fields));
+                textos.add(TextoMapper.apply(rs, fieldsDesired));
             }
             return textos;
         } catch (SQLException e) {
