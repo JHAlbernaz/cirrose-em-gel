@@ -6,6 +6,7 @@ import cirroseemgel.cirroseemgel.model.dao.TextoDao;
 import cirroseemgel.cirroseemgel.model.dao.UsuarioDao;
 import cirroseemgel.cirroseemgel.model.entities.Texto;
 import cirroseemgel.cirroseemgel.model.entities.Usuario;
+import cirroseemgel.cirroseemgel.service.EmailService;
 import cirroseemgel.cirroseemgel.util.EmailValidator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,12 +23,12 @@ public class CirroseEmGelApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CirroseEmGelApplication.class, args);
 		TextoDao textoDao = DaoFactory.createTextoDao();
-//		Texto texto = new Texto();
-//		texto.setTitulo("Teste numero 1");
-//		texto.setDescricao("Esse eh um baita teste!");
-//		texto.setDataPublicacao(LocalDateTime.now());
-//		texto.setConteudo("ESSA EH A PARTE QUE PODE DAR RUIM!");
-//		texto.setNumeroVisualizacoes(0);
+		Texto texto = new Texto();
+		texto.setTitulo("Teste numero 1");
+		texto.setDescricao("Esse eh um baita teste!");
+		texto.setDataPublicacao(LocalDateTime.now());
+		texto.setConteudo("ESSA EH A PARTE QUE PODE DAR RUIM!");
+		texto.setNumeroVisualizacoes(0);
 
 //		textoDao.findLatestTexts(1).forEach(texto -> {
 //			System.out.println(texto.getId() + " " + texto.getTitulo() + " " + texto.getDescricao() + " " +
@@ -58,5 +59,6 @@ public class CirroseEmGelApplication {
 //			usu
 //		}
 //
+		EmailService.SendEmails(texto);
 	}
 }

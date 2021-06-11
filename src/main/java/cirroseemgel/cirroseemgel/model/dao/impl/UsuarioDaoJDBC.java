@@ -139,7 +139,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
     public List<Usuario> findAllUserAssinando() {
         PreparedStatement st = null;
         ResultSet rs = null;
-        String[] fieldsDesired = {"id", "nome","assinando"};
+        String[] fieldsDesired = {"id", "nome", "email", "assinando"};
         try {
             st = conn.prepareStatement(
                     "SELECT id, nome, email, assinando FROM USUARIO " +
