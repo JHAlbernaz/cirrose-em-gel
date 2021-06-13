@@ -7,12 +7,20 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Comentario extends Interacao {
 
-    private String conteudo;
+public abstract class Interacao {
+
+    private String id;
+
+    private LocalDateTime data;
+
+    private Texto texto;
+
+    private Usuario autor;
 
 }

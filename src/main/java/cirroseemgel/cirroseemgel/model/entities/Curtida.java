@@ -12,14 +12,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Curtida {
-
-    private String id;
-
-    private LocalDateTime data;
-
-    private Texto texto;
-
-    private Usuario autor;
+public class Curtida extends Interacao {
 
 }
