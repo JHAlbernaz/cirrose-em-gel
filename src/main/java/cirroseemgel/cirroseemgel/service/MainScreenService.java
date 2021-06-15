@@ -28,6 +28,9 @@ public class MainScreenService {
             case 2:
                 LoginScreenService.mainLoginScreen();
                 break;
+            case 3:
+                ExitScreenService.mainExitScreen();
+                break;
         }
 
         scanner.close();
