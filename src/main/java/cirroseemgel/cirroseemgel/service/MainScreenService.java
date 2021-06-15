@@ -13,7 +13,7 @@ public class MainScreenService {
         System.out.println("|   O que desejas fazer?            |");
         System.out.println("|                                   |");
         System.out.println("|   1 - Ver ultimos textos          |");
-        System.out.println("|   2 - Fazer login/Cadastro        |");
+        System.out.println("|   2 - Fazer login ou cadastrar-se |");
         System.out.println("|   3 - Sair                        |");
         System.out.println("|                                   |");
         System.out.println("|   Digite o número da ação         |");

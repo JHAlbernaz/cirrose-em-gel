@@ -23,13 +23,13 @@ public class LoginScreenService {
         System.out.println("|     Senha:  ?                     |");
         System.out.println("|                                   |");
         System.out.println("|   1 - Para digitar dados e        |");
-        System.out.println("|       Entrar                      |");
+        System.out.println("|       entrar                      |");
         System.out.println("|   2 - Para fazer cadastro         |");
         System.out.println("|   3 - Para voltar                 |");
         System.out.println("|   4 - Sair                        |");
         System.out.println("|                                   |");
         System.out.println("|   Digite o número da ação         |");
-        System.out.println("|   Desejada                        |");
+        System.out.println("|   desejada.                       |");
         System.out.println("+ --------------------------------- +");
 
         acaoUsuario = scanner.nextInt();
@@ -42,6 +42,9 @@ public class LoginScreenService {
                 break;
             case 3:
                 MainScreenService.mainMenuScreen();
+                break;
+            case 4:
+                ExitScreenService.mainExitScreen();
                 break;
         }
     }
