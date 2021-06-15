@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class Curtida extends Interacao {

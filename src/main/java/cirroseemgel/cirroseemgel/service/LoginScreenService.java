@@ -99,9 +99,11 @@ public class LoginScreenService {
                 MainRouterScreenService.mainRouterScreen();
 
             } else {
+
                 System.out.println("Nenhum usuario encontrado com esse login! Tente novamente!");
                 scanner.close();
                 loginScreen();
+
             }
         } else {
             System.out.println("+ --------------------------------- +");
