@@ -11,12 +11,13 @@ public class RegisterScreenService {
         String nome = nameRegisteringScreen();
         String email = emailRegisteringScreen();
         String senha = passwordRegisteringScreen();
-        boolean estaAssinando;
+        boolean estaAssinando = signEmailNotificationsScreen();
 
         System.out.println("TESTES");
         System.out.println(nome);
         System.out.println(email);
         System.out.println(senha);
+        System.out.println(estaAssinando);
 
     }
 
@@ -57,20 +58,20 @@ public class RegisterScreenService {
 
             return email;
 
-        } else {
-
-            System.out.println("+ --------------------------------- +");
-            System.out.println("|          Cirrose em Gel           |");
-            System.out.println("|                                   |");
-            System.out.println("|   Email inserido é invalido :(    |");
-            System.out.println("|                                   |");
-            System.out.println("|   Tente novamente.                |");
-            System.out.println("|                                   |");
-            System.out.println("+ --------------------------------- +");
-
-            return emailRegisteringScreen();
-
         }
+
+        System.out.println("+ --------------------------------- +");
+        System.out.println("|          Cirrose em Gel           |");
+        System.out.println("|                                   |");
+        System.out.println("|   Email inserido é invalido :(    |");
+        System.out.println("|                                   |");
+        System.out.println("|   Tente novamente.                |");
+        System.out.println("|                                   |");
+        System.out.println("+ --------------------------------- +");
+
+        return emailRegisteringScreen();
+
+
     }
 
     private static String passwordRegisteringScreen() {
@@ -103,18 +104,59 @@ public class RegisterScreenService {
 
             return password;
 
-        } else {
+        }
+
+        System.out.println("+ --------------------------------- +");
+        System.out.println("|          Cirrose em Gel           |");
+        System.out.println("|                                   |");
+        System.out.println("|   As senhas não bateram :(        |");
+        System.out.println("|                                   |");
+        System.out.println("|   Tente novamente.                |");
+        System.out.println("|                                   |");
+        System.out.println("+ --------------------------------- +");
+
+        return passwordRegisteringScreen();
+
+    }
+
+    private static boolean signEmailNotificationsScreen() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("+ --------------------------------- +");
+        System.out.println("|          Cirrose em Gel           |");
+        System.out.println("|                                   |");
+        System.out.println("|   Gostaria de ser notificado      |");
+        System.out.println("|   sempre que um novo texto        |");
+        System.out.println("|   for publicado?                  |");
+        System.out.println("|                                   |");
+        System.out.println("|   1 - Sim, eu adoraria.           |");
+        System.out.println("|   2 - Na verdade, eu não quero.   |");
+        System.out.println("|                                   |");
+        System.out.println("|   Digite o número da ação         |");
+        System.out.println("|   desejada                        |");
+        System.out.println("+ --------------------------------- +");
+
+        int escolhaDoUsuario = scanner.nextInt();
+
+        if (escolhaDoUsuario <= 0 || escolhaDoUsuario >= 3) {
 
             System.out.println("+ --------------------------------- +");
             System.out.println("|          Cirrose em Gel           |");
             System.out.println("|                                   |");
-            System.out.println("|   As senhas não bateram :(        |");
-            System.out.println("|                                   |");
-            System.out.println("|   Tente novamente.                |");
-            System.out.println("|                                   |");
+            System.out.println("|          Opção Inválida!          |");
             System.out.println("+ --------------------------------- +");
 
-            return passwordRegisteringScreen();
+            return signEmailNotificationsScreen();
+
+        } else if (escolhaDoUsuario == 1) {
+
+            return true;
+
         }
+
+        return false;
+
     }
+
 }

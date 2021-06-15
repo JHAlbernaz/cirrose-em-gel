@@ -6,7 +6,9 @@ public class MainScreenService {
 
     public static void mainMenuScreen() {
         Scanner scanner = new Scanner(System.in);
+
         int açãoInicial;
+
         System.out.println("+ --------------------------------- +");
         System.out.println("|          Cirrose em Gel           |");
         System.out.println("|                                   |");
