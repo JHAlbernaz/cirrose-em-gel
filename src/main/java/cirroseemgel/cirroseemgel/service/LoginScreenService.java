@@ -39,6 +39,7 @@ public class LoginScreenService {
                 loginScreen();
                 break;
             case 2:
+                RegisterScreenService.registerScreenService();
                 break;
             case 3:
                 MainScreenService.mainMenuScreen();
