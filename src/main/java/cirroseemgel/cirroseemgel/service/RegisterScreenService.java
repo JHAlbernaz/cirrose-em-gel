@@ -1,5 +1,8 @@
 package cirroseemgel.cirroseemgel.service;
 
+import cirroseemgel.cirroseemgel.model.dao.DaoFactory;
+import cirroseemgel.cirroseemgel.model.dao.UsuarioDao;
+import cirroseemgel.cirroseemgel.model.entities.Usuario;
 import cirroseemgel.cirroseemgel.util.EmailValidator;
 
 import java.util.Scanner;
@@ -8,16 +11,18 @@ public class RegisterScreenService {
 
     public static void registerScreenService() {
 
-        String nome = nameRegisteringScreen();
+        String name = nameRegisteringScreen();
         String email = emailRegisteringScreen();
-        String senha = passwordRegisteringScreen();
+        String password = passwordRegisteringScreen();
         boolean estaAssinando = signEmailNotificationsScreen();
 
-        System.out.println("TESTES");
-        System.out.println(nome);
-        System.out.println(email);
-        System.out.println(senha);
-        System.out.println(estaAssinando);
+        UsuarioDao usuarioDao = DaoFactory.createUsuarioDao();
+
+        Usuario newUser = new Usuario(name, email, password, estaAssinando);
+
+        usuarioDao.insert(newUser);
+
+        MainScreenService.userLoggedMainMenuScreen();
 
     }
 
