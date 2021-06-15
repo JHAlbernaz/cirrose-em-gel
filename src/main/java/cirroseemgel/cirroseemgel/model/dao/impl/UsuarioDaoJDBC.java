@@ -23,7 +23,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
     }
 
     @Override
-    public void insert(Usuario usuario) {
+    public String insert(Usuario usuario) {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
@@ -32,16 +32,17 @@ public class UsuarioDaoJDBC implements UsuarioDao {
                     "VALUES " +
                     "(?, ?, ?, ?, ?)"
             );
-            st.setString(1, UUID.randomUUID().toString());
+            String id = UUID.randomUUID().toString();
+            st.setString(1, id);
             st.setString(2, usuario.getNome());
             st.setString(3, usuario.getEmail());
             st.setString(4, usuario.getSenha());
             st.setBoolean(5, usuario.isEstaAssinando());
 
-
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Usuario inserted sucessfully!");
+                return id;
             } else {
                 throw new DbException("Unexpected error! No rows affected!");
             }

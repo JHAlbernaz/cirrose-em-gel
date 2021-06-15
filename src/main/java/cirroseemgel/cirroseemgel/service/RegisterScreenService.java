@@ -20,7 +20,9 @@ public class RegisterScreenService {
 
         Usuario newUser = new Usuario(name, email, password, estaAssinando);
 
-        usuarioDao.insert(newUser);
+        newUser.setId(usuarioDao.insert(newUser));
+
+        LoginScreenService.loggedUser = newUser;
 
         MainScreenService.userLoggedMainMenuScreen();
 

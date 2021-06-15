@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UsuarioDao {
 
-    void insert(Usuario usuario);
+    String insert(Usuario usuario);
     void update(Usuario usuario);
     void deleteById(String id);
     Usuario findById(String id);

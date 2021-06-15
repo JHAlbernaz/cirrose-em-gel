@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class LoginScreenService {
 
-    private static Usuario loggedUser;
+    public static Usuario loggedUser;
 
     public static void mainLoginScreen() {
         Scanner scanner = new Scanner(System.in);
