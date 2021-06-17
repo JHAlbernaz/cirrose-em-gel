@@ -73,12 +73,11 @@ public class LatestTextsScreenService {
         } else if (acaoUsuario == latestTexts.size() + 1 && hasTexts) {
             LastestTextsScreen(numberOfTextsToLoad + 3);
         } else if (acaoUsuario > 0 && acaoUsuario < latestTexts.size() + 1 && hasTexts) {
-
+            String selectedTextId = latestTexts.get(acaoUsuario - 1).getId();
+            TextCompleteScreenService.textCompleteScreen(latestTexts.get(acaoUsuario - 1).getId());
         } else {
             OpcaoInvalidaScreen.OpcaoInvalidaScreen();
             LastestTextsScreen(numberOfTextsToLoad);
         }
-
     }
-
 }

@@ -56,7 +56,7 @@ public class TextoDaoJDBC implements TextoDao {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("UPDATE TEXTO " +
-                    "SET titulo = ?, descricao = ?, conteudo = ?, numeroVisualizacoes = ?, data_publicacao = ? " +
+                    "SET titulo = ?, descricao = ?, conteudo = ?, numero_visualizacoes = ?, data_publicacao = ? " +
                     "WHERE id = ?"
             );
             st.setString(1, texto.getTitulo());

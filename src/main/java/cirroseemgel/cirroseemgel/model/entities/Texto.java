@@ -29,4 +29,8 @@ public class Texto {
         this.id = id;
     }
 
+    public void addVisualizacao() {
+        numeroVisualizacoes++;
+    }
+
 }

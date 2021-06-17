@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class LoginScreenService {
 
+    public static final String adminId = "EUSOUPIKA";
+
     public static Usuario loggedUser;
     public static boolean hasLoggedUser;
 
@@ -101,6 +103,7 @@ public class LoginScreenService {
                 System.out.println("|                                   |");
                 System.out.println("+ --------------------------------- +");
                 loggedUser = user;
+                hasLoggedUser = true;
                 MainScreenService.userLoggedMainMenuScreen();
             } else {
                 System.out.println("Nenhum usuario encontrado com esse login! Tente novamente!");
