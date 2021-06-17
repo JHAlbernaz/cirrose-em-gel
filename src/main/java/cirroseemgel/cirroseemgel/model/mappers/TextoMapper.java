@@ -21,7 +21,7 @@ public class TextoMapper {
             texto.setDescricao(rs.getString("descricao"));
         }
         if (Arrays.stream(fields).anyMatch(field -> field == "conteudo")) {
-            texto.setDescricao(rs.getString("conteudo"));
+            texto.setConteudo(rs.getString("conteudo"));
         }
         if (Arrays.stream(fields).anyMatch(field -> field == "numero_visualizacoes")) {
             texto.setNumeroVisualizacoes(rs.getInt("numero_visualizacoes"));

@@ -27,16 +27,16 @@ public class EmailService {
         email.setSSLOnConnect(true);
 
         usersEmails.forEach(userEmail -> {
-        try {
-            email.setFrom(EMAIL);
-            email.setSubject("Cirrose Em Gel - Nova Publicação");
-            email.setMsg("O texto " + texto.getTitulo() + " esta disponivel no CeG!");
-            email.addTo(userEmail);
-            email.send();
-            System.out.println("Email enviado com sucesso!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            try {
+                email.setFrom(EMAIL);
+                email.setSubject("Cirrose Em Gel - Nova Publicação");
+                email.setMsg("O texto " + texto.getTitulo() + " esta disponivel no CeG!");
+                email.addTo(userEmail);
+                email.send();
+                System.out.println("Email enviado com sucesso!");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 }

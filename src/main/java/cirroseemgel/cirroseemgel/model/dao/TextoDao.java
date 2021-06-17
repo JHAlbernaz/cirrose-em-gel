@@ -13,5 +13,6 @@ public interface TextoDao {
     Texto findById(String id);
     List<Texto> findAll();
     List<Texto> findLatestTexts(int numberOfTextsWanted);
+    void addVisualizacao(Texto texto);
 
 }

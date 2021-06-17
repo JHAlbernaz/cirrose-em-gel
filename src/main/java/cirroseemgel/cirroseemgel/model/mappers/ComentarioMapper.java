@@ -11,10 +11,13 @@ public class ComentarioMapper {
 
     public static Comentario apply(ResultSet rs) throws SQLException {
         Comentario comentario = new Comentario();
+        Usuario usuario = new Usuario();
+        usuario.setId(rs.getString("id_usuario"));
+        usuario.setNome(rs.getString("nome_usuario"));
+        comentario.setAutor(usuario);
         comentario.setId(rs.getString("id"));
-        comentario.setData(rs.getTimestamp("data_curtida").toLocalDateTime());
+        comentario.setData(rs.getTimestamp("data_comentario").toLocalDateTime());
         comentario.setConteudo(rs.getString("conteudo"));
-        comentario.setAutor(new Usuario(rs.getString("id_usuario")));
         comentario.setTexto(new Texto(rs.getString("id_texto")));
         return comentario;
     }
