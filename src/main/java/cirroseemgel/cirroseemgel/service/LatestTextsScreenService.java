@@ -16,7 +16,7 @@ public class LatestTextsScreenService {
 
         Scanner scanner = new Scanner(System.in);
         int acaoUsuario;
-        TextoDao textoDao = DaoFactory.createTextDao();
+        TextoDao textoDao = DaoFactory.createTextoDao();
         CurtidaDao curtidaDao = DaoFactory.createCurtidaDao();
         ComentarioDao comentarioDao = DaoFactory.createComentarioDao();
         List<Texto> latestTexts = textoDao.findLatestTexts(numberOfTextsToLoad);

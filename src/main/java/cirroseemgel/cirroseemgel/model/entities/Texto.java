@@ -29,4 +29,14 @@ public class Texto {
         this.id = id;
     }
 
+    public Texto(String titulo, String descricao, String conteudo, LocalDateTime dataPublicacao) {
+
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.conteudo = conteudo;
+        this.numeroVisualizacoes = 0;
+        this.dataPublicacao = dataPublicacao;
+
+    }
+
 }

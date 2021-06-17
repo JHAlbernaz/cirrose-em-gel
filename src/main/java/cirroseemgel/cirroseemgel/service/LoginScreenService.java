@@ -11,6 +11,7 @@ public class LoginScreenService {
 
     public static Usuario loggedUser;
     public static boolean hasLoggedUser;
+    public static final String ownerID = "00000000001";
 
     public static void mainLoginScreen() {
         Scanner scanner = new Scanner(System.in);
@@ -95,13 +96,26 @@ public class LoginScreenService {
             Usuario user = usuarioDao.findByEmailAndPassword(email, password);
 
             if (user != null) {
+
                 System.out.println("+ --------------------------------- +");
                 System.out.println("|                                   |");
                 System.out.println("    Bem vindo " + user.getNome() + " !");
                 System.out.println("|                                   |");
                 System.out.println("+ --------------------------------- +");
                 loggedUser = user;
-                MainScreenService.userLoggedMainMenuScreen();
+
+                String loggedUserId = loggedUser.getId();
+
+                if (loggedUserId.equals(ownerID)) {
+
+                    MainScreenService.ownerLoggedMainMenuScreen();
+
+                } else {
+
+                    MainScreenService.userLoggedMainMenuScreen();
+
+                }
+
             } else {
                 System.out.println("Nenhum usuario encontrado com esse login! Tente novamente!");
                 scanner.close();
