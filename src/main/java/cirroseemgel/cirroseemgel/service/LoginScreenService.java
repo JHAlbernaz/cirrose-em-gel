@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class LoginScreenService {
 
     public static Usuario loggedUser;
+    public static boolean hasLoggedUser;
 
     public static void mainLoginScreen() {
         Scanner scanner = new Scanner(System.in);
@@ -100,14 +101,11 @@ public class LoginScreenService {
                 System.out.println("|                                   |");
                 System.out.println("+ --------------------------------- +");
                 loggedUser = user;
-                MainRouterScreenService.mainRouterScreen();
-
+                MainScreenService.userLoggedMainMenuScreen();
             } else {
-
                 System.out.println("Nenhum usuario encontrado com esse login! Tente novamente!");
                 scanner.close();
                 loginScreen();
-
             }
         } else {
             System.out.println("+ --------------------------------- +");

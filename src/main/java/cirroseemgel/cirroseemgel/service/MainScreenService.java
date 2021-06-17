@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class MainScreenService {
 
+    private static final int INITIAL_NUMBER_OF_TEXTS = 3;
+
     public static void mainMenuScreen() {
         Scanner scanner = new Scanner(System.in);
 
@@ -26,6 +28,7 @@ public class MainScreenService {
 
         switch (acaoInicial) {
             case 1:
+                LatestTextsScreenService.LastestTextsScreen(INITIAL_NUMBER_OF_TEXTS);
                 break;
             case 2:
                 LoginScreenService.mainLoginScreen();
@@ -61,6 +64,7 @@ public class MainScreenService {
         switch (acaoInicial) {
 
             case 1:
+                LatestTextsScreenService.LastestTextsScreen(INITIAL_NUMBER_OF_TEXTS);
                 break;
             case 2:
                 ExitScreenService.mainExitScreen();

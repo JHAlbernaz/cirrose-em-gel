@@ -109,4 +109,28 @@ public class ComentarioDaoJDBC implements ComentarioDao {
             DB.closeResultSet(rs);
         }
     }
+
+    @Override
+    public int getNumberOfComentariosByTextoId(String textoId) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT COUNT(*) AS numero_comentarios FROM COMENTARIO " +
+                            "WHERE id_texto = ?"
+            );
+            st.setString(1, textoId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("numero_comentarios");
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
 }

@@ -108,4 +108,27 @@ public class CurtidaDaoJDBC implements CurtidaDao {
             DB.closeResultSet(rs);
         }
     }
+
+    @Override
+    public int getNumberOfCurtidasByTextoId(String textoId) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT COUNT(*) AS numero_curtidas FROM CURTIDA " +
+                            "WHERE id_texto = ?"
+            );
+            st.setString(1, textoId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("numero_curtidas");
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
 }

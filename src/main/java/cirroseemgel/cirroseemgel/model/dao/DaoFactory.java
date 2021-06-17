@@ -16,7 +16,7 @@ public class DaoFactory {
         return new ComentarioDaoJDBC(DB.getConnection());
     }
 
-    public static TextoDao createTextoDao() {
+    public static TextoDao createTextDao() {
         return new TextoDaoJDBC(DB.getConnection());
     }
 

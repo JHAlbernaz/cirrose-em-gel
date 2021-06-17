@@ -11,5 +11,6 @@ public interface CurtidaDao {
     void deleteById(String id);
     List<Curtida> findByUsuarioId(String usuarioId);
     List<Curtida> findByTextoId(String textoId);
+    int getNumberOfCurtidasByTextoId(String textoId);
 
 }

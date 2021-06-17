@@ -4,6 +4,7 @@ import cirroseemgel.cirroseemgel.model.dao.DaoFactory;
 import cirroseemgel.cirroseemgel.model.dao.UsuarioDao;
 import cirroseemgel.cirroseemgel.model.entities.Usuario;
 import cirroseemgel.cirroseemgel.util.EmailValidator;
+import cirroseemgel.cirroseemgel.util.OpcaoInvalidaScreen;
 
 import java.util.Scanner;
 
@@ -23,6 +24,7 @@ public class RegisterScreenService {
         newUser.setId(usuarioDao.insert(newUser));
 
         LoginScreenService.loggedUser = newUser;
+        LoginScreenService.hasLoggedUser = true;
 
         MainScreenService.userLoggedMainMenuScreen();
 
@@ -148,11 +150,7 @@ public class RegisterScreenService {
 
         if (escolhaDoUsuario <= 0 || escolhaDoUsuario >= 3) {
 
-            System.out.println("+ --------------------------------- +");
-            System.out.println("|          Cirrose em Gel           |");
-            System.out.println("|                                   |");
-            System.out.println("|          Opção Inválida!          |");
-            System.out.println("+ --------------------------------- +");
+            OpcaoInvalidaScreen.OpcaoInvalidaScreen();
 
             return signEmailNotificationsScreen();
 
