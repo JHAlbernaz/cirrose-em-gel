@@ -4,7 +4,6 @@ import cirroseemgel.cirroseemgel.model.dao.DaoFactory;
 import cirroseemgel.cirroseemgel.model.dao.TextoDao;
 import cirroseemgel.cirroseemgel.model.entities.Texto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
