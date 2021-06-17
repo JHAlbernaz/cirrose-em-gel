@@ -27,8 +27,6 @@ public class TextCompleteScreenService {
         Texto text = textoDao.findById(textoId);
         if (LoginScreenService.hasLoggedUser) {
             hasUserLikedThisText = likes.stream().anyMatch(curtida -> curtida.getAutor().getId().equals(LoginScreenService.loggedUser.getId()));
-            text.addVisualizacao();
-            textoDao.update(text);
         }
         showTextoWithCompleteInfo(text, comments.size(), likes.size(), hasUserLikedThisText);
         int acaoTomada = showPossibleActions(hasUserLikedThisText);

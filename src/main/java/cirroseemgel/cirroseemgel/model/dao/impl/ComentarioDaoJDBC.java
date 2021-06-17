@@ -92,8 +92,16 @@ public class ComentarioDaoJDBC implements ComentarioDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "SELECT * FROM COMENTARIO " +
-                            "WHERE id_texto = ?"
+                    "SELECT c.id AS id, " +
+                    "c.conteudo AS conteudo, " +
+                    "c.id_texto AS id_texto, " +
+                    "c.id_usuario AS id_usuario, " +
+                    "c.data_comentario AS data_comentario, " +
+                    "u.nome AS nome_usuario " +
+                    "FROM comentario c " +
+                    "JOIN usuario u " +
+                    "ON u.id = c.id_usuario " +
+                    "WHERE c.id_texto = ?"
             );
             st.setString(1, textoId);
             List<Comentario> comentarios = new ArrayList<>();

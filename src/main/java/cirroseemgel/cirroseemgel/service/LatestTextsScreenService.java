@@ -5,6 +5,7 @@ import cirroseemgel.cirroseemgel.model.dao.CurtidaDao;
 import cirroseemgel.cirroseemgel.model.dao.DaoFactory;
 import cirroseemgel.cirroseemgel.model.dao.TextoDao;
 import cirroseemgel.cirroseemgel.model.entities.Texto;
+import cirroseemgel.cirroseemgel.util.LocalDateTimeFormatter;
 import cirroseemgel.cirroseemgel.util.OpcaoInvalidaScreen;
 
 import java.util.List;
@@ -32,9 +33,10 @@ public class LatestTextsScreenService {
             for (int i = 0; i < latestTexts.size(); i++) {
                 int indexToBeShown = i + 1;
                 Texto text = latestTexts.get(i);
+                String formattedDate = LocalDateTimeFormatter.format(text.getDataPublicacao());
                 int numberOfCurtidas = curtidaDao.getNumberOfCurtidasByTextoId(text.getId());
                 int numberOfComentarios = comentarioDao.getNumberOfComentariosByTextoId(text.getId());
-                System.out.println("   " + indexToBeShown +" - " +text.getTitulo());
+                System.out.println("   " + indexToBeShown +" - " +text.getTitulo() + "       " + formattedDate);
                 System.out.println();
                 System.out.println("   " + text.getDescricao());
                 System.out.println();
@@ -73,8 +75,12 @@ public class LatestTextsScreenService {
         } else if (acaoUsuario == latestTexts.size() + 1 && hasTexts) {
             LastestTextsScreen(numberOfTextsToLoad + 3);
         } else if (acaoUsuario > 0 && acaoUsuario < latestTexts.size() + 1 && hasTexts) {
-            String selectedTextId = latestTexts.get(acaoUsuario - 1).getId();
-            TextCompleteScreenService.textCompleteScreen(latestTexts.get(acaoUsuario - 1).getId());
+            Texto selectedText = latestTexts.get(acaoUsuario - 1);
+            if (LoginScreenService.hasLoggedUser) {
+                selectedText.addVisualizacao();
+                textoDao.addVisualizacao(selectedText);
+            }
+            TextCompleteScreenService.textCompleteScreen(selectedText.getId());
         } else {
             OpcaoInvalidaScreen.OpcaoInvalidaScreen();
             LastestTextsScreen(numberOfTextsToLoad);

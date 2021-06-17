@@ -142,7 +142,7 @@ public class TextoDaoJDBC implements TextoDao {
         try {
             st = conn.prepareStatement(
                     "SELECT id, titulo, descricao, data_publicacao, numero_visualizacoes FROM TEXTO " +
-                    "ORDER BY data_publicacao ASC " +
+                    "ORDER BY data_publicacao DESC " +
                     "LIMIT ?"
             );
             st.setInt(1, numberOfTextsWanted);
@@ -157,6 +157,24 @@ public class TextoDaoJDBC implements TextoDao {
         } finally {
             DB.closeStatement(st);
             DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
+    public void addVisualizacao(Texto texto) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("UPDATE TEXTO " +
+                    "SET numero_visualizacoes = ? " +
+                    "WHERE id = ?"
+            );
+            st.setInt(1, texto.getNumeroVisualizacoes());
+            st.setString(2, texto.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
         }
     }
 }
