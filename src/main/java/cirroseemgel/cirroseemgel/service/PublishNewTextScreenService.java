@@ -23,16 +23,10 @@ public class PublishNewTextScreenService {
         LocalDateTime dataPublicacao = LocalDateTime.now();
 
         TextoDao textoDao = DaoFactory.createTextoDao();
-        UsuarioDao usuarioDao = DaoFactory.createUsuarioDao();
 
         Texto texto = new Texto(titulo, descricao, conteudo, dataPublicacao);
 
         textoDao.insert(texto);
-
-        System.out.println("+ --------------------------------- +");
-        System.out.println("|          Cirrose em Gel           |");
-        System.out.println("|    Texto publicado com sucesso!   |");
-        System.out.println("+ --------------------------------- +");
 
         EmailService.SendEmails(texto);
 
@@ -90,6 +84,13 @@ public class PublishNewTextScreenService {
 
         return texto;
 
+    }
+
+    public static void showTextAddOrUpdatedOrDeletedMessage(String message) {
+        System.out.println("+ --------------------------------- +");
+        System.out.println("|          Cirrose em Gel           |");
+        System.out.println("    Texto " + message + " com sucesso!   ");
+        System.out.println("+ --------------------------------- +");
     }
 
 }

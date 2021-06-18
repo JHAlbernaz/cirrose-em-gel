@@ -20,23 +20,39 @@ public class EmailService {
         List<String> usersEmails = usuarioDao.findAllUserAssinando().stream().map(usuario -> usuario.getEmail()
         ).collect(Collectors.toList());
 
-        SimpleEmail email = new SimpleEmail();
-        email.setHostName("smtp.gmail.com");
-        email.setSmtpPort(465);
-        email.setAuthenticator(new DefaultAuthenticator(EMAIL, SENHA));
-        email.setSSLOnConnect(true);
+        System.out.println("+ --------------------------------- +");
+        System.out.println("|          Cirrose em Gel           |");
+        System.out.println("|                                   |");
+        System.out.println("|   Notificando usuários inscritos  |");
+        System.out.println("|   que um novo texto foi lançado.  |");
+        System.out.println("|                                   |");
+        System.out.println("+ --------------------------------- +");
 
-        usersEmails.forEach(userEmail -> {
+        for (int i = 0; i < usersEmails.size(); i++) {
+            String userEmail = usersEmails.get(i);
+            SimpleEmail email = new SimpleEmail();
+            email.setHostName("smtp.gmail.com");
+            email.setSmtpPort(465);
+            email.setAuthenticator(new DefaultAuthenticator(EMAIL, SENHA));
+            email.setSSLOnConnect(true);
             try {
                 email.setFrom(EMAIL);
                 email.setSubject("Cirrose Em Gel - Nova Publicação");
                 email.setMsg("O texto " + texto.getTitulo() + " esta disponivel no CeG!");
                 email.addTo(userEmail);
                 email.send();
-                System.out.println("Email enviado com sucesso!");
+                usersNotified(usersEmails.size(), i);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        }
+    }
+
+    private static void usersNotified(int totalUsers, int actualUser) {
+        actualUser++;
+        System.out.println("+ --------------------------------- +");
+        System.out.println("|    Usuarios notificados : " + actualUser + "       |");
+        System.out.println("|    Total a ser notificado: " + totalUsers + "      |");
+        System.out.println("+ --------------------------------- +");
     }
 }

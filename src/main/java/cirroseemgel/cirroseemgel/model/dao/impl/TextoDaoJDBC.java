@@ -5,6 +5,7 @@ import cirroseemgel.cirroseemgel.db.DbException;
 import cirroseemgel.cirroseemgel.model.dao.TextoDao;
 import cirroseemgel.cirroseemgel.model.entities.Texto;
 import cirroseemgel.cirroseemgel.model.mappers.TextoMapper;
+import cirroseemgel.cirroseemgel.service.PublishNewTextScreenService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class TextoDaoJDBC implements TextoDao {
 
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Texto inserted sucessfully!");
+                PublishNewTextScreenService.showTextAddOrUpdatedOrDeletedMessage("Adicionado");
                 texto.setId(id);
             } else {
                 throw new DbException("Unexpected error! No rows affected!");
