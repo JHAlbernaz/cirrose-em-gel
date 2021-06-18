@@ -168,6 +168,7 @@ public class CommentsScreenService {
         Scanner scanner = new Scanner(System.in);
         ComentarioDao commentDao = DaoFactory.createComentarioDao();
         int userAction;
+        String newMessage;
 
         System.out.println("+ --------------------------------- +");
         System.out.println("|          Cirrose em Gel           |");
@@ -187,21 +188,26 @@ public class CommentsScreenService {
         userAction = scanner.nextInt();
 
         if (userAction == 1) {
-            String newMessage;
-            System.out.println("+ --------------------------------- +");
-            System.out.println("|          Cirrose em Gel           |");
-            System.out.println("|                                   |");
-            System.out.println("|     Qual será a nova mensagem?    |");
-            System.out.println("|                                   |");
-            System.out.println("+ --------------------------------- +");
-            newMessage = scanner.nextLine();
-            comment.setConteudo(newMessage);
-            commentDao.updateCommentContent(comment);
+            Comentario commentUpdated = editCommentScreen(comment);
+            commentDao.updateCommentContent(commentUpdated);
         } else if (userAction == 2) {
             commentDao.deleteById(comment.getId());
         } else if (userAction != 3) {
             InvalidOptionScreen.OpcaoInvalidaScreen();
         }
         commentScreen(comment.getTexto().getId());
+    }
+
+    public static Comentario editCommentScreen(Comentario comment) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("+ --------------------------------- +");
+        System.out.println("|          Cirrose em Gel           |");
+        System.out.println("|                                   |");
+        System.out.println("|     Qual será a nova mensagem?    |");
+        System.out.println("|                                   |");
+        System.out.println("+ --------------------------------- +");
+        String newMessage = scanner.nextLine();
+        comment.setConteudo(newMessage);
+        return comment;
     }
 }
