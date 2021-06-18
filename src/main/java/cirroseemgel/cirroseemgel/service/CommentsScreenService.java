@@ -57,13 +57,14 @@ public class CommentsScreenService {
                     List<Comentario> userLoggedComments = comments.stream().filter(comentario ->
                             comentario.getAutor().getId().equals(LoginScreenService.loggedUser.getId())).collect(Collectors.toList());
                     listLoggedUserComments(userLoggedComments);
-
                 } else if (userAction == 3) {
                     TextCompleteScreenService.textCompleteScreen(textId);
                 } else {
                     InvalidOptionScreen.OpcaoInvalidaScreen();
                     commentScreen(textId);
                 }
+            } else {
+                TextCompleteScreenService.textCompleteScreen(textId);
             }
 
         } else {

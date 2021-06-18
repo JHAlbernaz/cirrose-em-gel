@@ -5,6 +5,7 @@ import cirroseemgel.cirroseemgel.db.DbException;
 import cirroseemgel.cirroseemgel.model.dao.CurtidaDao;
 import cirroseemgel.cirroseemgel.model.entities.Curtida;
 import cirroseemgel.cirroseemgel.model.mappers.CurtidaMapper;
+import cirroseemgel.cirroseemgel.service.CommentsScreenService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -129,6 +130,34 @@ public class CurtidaDaoJDBC implements CurtidaDao {
         } finally {
             DB.closeStatement(st);
             DB.closeResultSet(rs);
+        }
+    }
+
+    @Override
+    public void deleteUserCurtidas(String userId) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("DELETE FROM CURTIDA WHERE id_usuario = ?");
+            st.setString(1, userId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
+    }
+
+    @Override
+    public void deleteTextCurtidas(String textId) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("DELETE FROM CURTIDA WHERE id_texto = ?");
+            st.setString(1, textId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
         }
     }
 }

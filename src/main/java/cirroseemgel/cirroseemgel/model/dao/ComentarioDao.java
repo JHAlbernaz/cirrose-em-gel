@@ -13,5 +13,7 @@ public interface ComentarioDao {
     List<Comentario> findByTextoId(String textoId);
     int getNumberOfComentariosByTextoId(String textoId);
     void updateCommentContent(Comentario comment);
+    void deleteUserComments(String userId);
+    void deleteTextComments(String textId);
 
 }

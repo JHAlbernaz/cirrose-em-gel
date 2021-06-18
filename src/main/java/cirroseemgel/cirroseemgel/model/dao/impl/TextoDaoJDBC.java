@@ -113,29 +113,6 @@ public class TextoDaoJDBC implements TextoDao {
     }
 
     @Override
-    public List<Texto> findAll() {
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        String[] fieldsDesired = {"id", "titulo", "descricao", "conteudo", "numero_visualizacoes", "data_publicacao"};
-        try {
-            st = conn.prepareStatement(
-                    "SELECT * FROM TEXTO"
-            );
-            List<Texto> textos = new ArrayList<>();
-            rs = st.executeQuery();
-            while (rs.next()) {
-                textos.add(TextoMapper.apply(rs, fieldsDesired));
-            }
-            return textos;
-        } catch (SQLException e) {
-            throw new DbException(e.getMessage());
-        } finally {
-            DB.closeStatement(st);
-            DB.closeResultSet(rs);
-        }
-    }
-
-    @Override
     public List<Texto> findLatestTexts(int numberOfTextsWanted) {
         PreparedStatement st = null;
         ResultSet rs = null;

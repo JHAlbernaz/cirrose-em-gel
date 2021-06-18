@@ -132,4 +132,9 @@ public class LoginScreenService {
             loginScreen();
         }
     }
+
+    public static void updateLoggedUserInfo(Usuario newLoggedUserInfo) {
+        loggedUser.setNome(newLoggedUserInfo.getNome());
+        loggedUser.setEstaAssinando(newLoggedUserInfo.isEstaAssinando());
+    }
 }

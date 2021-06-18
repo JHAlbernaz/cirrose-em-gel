@@ -12,5 +12,7 @@ public interface CurtidaDao {
     List<Curtida> findByUsuarioId(String usuarioId);
     List<Curtida> findByTextoId(String textoId);
     int getNumberOfCurtidasByTextoId(String textoId);
+    void deleteUserCurtidas(String userId);
+    void deleteTextCurtidas(String textId);
 
 }

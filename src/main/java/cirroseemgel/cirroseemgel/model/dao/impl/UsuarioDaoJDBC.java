@@ -5,6 +5,7 @@ import cirroseemgel.cirroseemgel.db.DbException;
 import cirroseemgel.cirroseemgel.model.dao.UsuarioDao;
 import cirroseemgel.cirroseemgel.model.entities.Usuario;
 import cirroseemgel.cirroseemgel.model.mappers.UsuarioMapper;
+import cirroseemgel.cirroseemgel.service.UserAccountMenuScreenService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,6 +71,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
             st.setBoolean(3, usuario.isEstaAssinando());
             st.setString(4, usuario.getId());
             st.executeUpdate();
+            UserAccountMenuScreenService.userEditedOrDeleted("Editado");
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {
@@ -84,6 +86,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
             st = conn.prepareStatement("DELETE FROM USUARIO WHERE id = ?");
             st.setString(1, id);
             st.executeUpdate();
+            UserAccountMenuScreenService.userEditedOrDeleted("Excluido.");
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {

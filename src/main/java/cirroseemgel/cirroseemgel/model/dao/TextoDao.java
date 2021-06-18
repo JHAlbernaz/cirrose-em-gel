@@ -11,7 +11,6 @@ public interface TextoDao {
     void update(Texto texto);
     void deleteById(String id);
     Texto findById(String id);
-    List<Texto> findAll();
     List<Texto> findLatestTexts(int numberOfTextsWanted);
     void addVisualizacao(Texto texto);
 

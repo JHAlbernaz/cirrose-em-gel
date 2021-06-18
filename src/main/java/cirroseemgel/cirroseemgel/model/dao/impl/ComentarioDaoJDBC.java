@@ -162,4 +162,32 @@ public class ComentarioDaoJDBC implements ComentarioDao {
             DB.closeStatement(st);
         }
     }
+
+    @Override
+    public void deleteUserComments(String userId) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("DELETE FROM COMENTARIO WHERE id_usuario = ?");
+            st.setString(1, userId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
+    }
+
+    @Override
+    public void deleteTextComments(String textId) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("DELETE FROM COMENTARIO WHERE id_texto = ?");
+            st.setString(1, textId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
+    }
 }
