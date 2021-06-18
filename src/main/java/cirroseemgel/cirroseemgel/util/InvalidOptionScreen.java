@@ -1,6 +1,6 @@
 package cirroseemgel.cirroseemgel.util;
 
-public class OpcaoInvalidaScreen {
+public class InvalidOptionScreen {
 
     public static void OpcaoInvalidaScreen() {
 

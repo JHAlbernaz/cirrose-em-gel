@@ -2,9 +2,12 @@ package cirroseemgel.cirroseemgel.service;
 
 import cirroseemgel.cirroseemgel.model.dao.DaoFactory;
 import cirroseemgel.cirroseemgel.model.dao.TextoDao;
+import cirroseemgel.cirroseemgel.model.dao.UsuarioDao;
 import cirroseemgel.cirroseemgel.model.entities.Texto;
+import cirroseemgel.cirroseemgel.model.entities.Usuario;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 public class PublishNewTextScreenService {
@@ -20,6 +23,7 @@ public class PublishNewTextScreenService {
         LocalDateTime dataPublicacao = LocalDateTime.now();
 
         TextoDao textoDao = DaoFactory.createTextoDao();
+        UsuarioDao usuarioDao = DaoFactory.createUsuarioDao();
 
         Texto texto = new Texto(titulo, descricao, conteudo, dataPublicacao);
 
@@ -29,6 +33,8 @@ public class PublishNewTextScreenService {
         System.out.println("|          Cirrose em Gel           |");
         System.out.println("|    Texto publicado com sucesso!   |");
         System.out.println("+ --------------------------------- +");
+
+        EmailService.SendEmails(texto);
 
         MainScreenService.ownerLoggedMainMenuScreen();
 

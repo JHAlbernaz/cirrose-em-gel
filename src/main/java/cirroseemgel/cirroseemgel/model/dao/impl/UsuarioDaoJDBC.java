@@ -41,7 +41,11 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Usuario inserted sucessfully!");
+                System.out.println("+ --------------------------------- +");
+                System.out.println("|                                   |");
+                System.out.println("    Bem vindo " + usuario.getNome() + " !");
+                System.out.println("|                                   |");
+                System.out.println("+ --------------------------------- +");
                 return id;
             } else {
                 throw new DbException("Unexpected error! No rows affected!");

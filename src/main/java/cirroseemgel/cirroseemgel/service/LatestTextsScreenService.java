@@ -6,7 +6,7 @@ import cirroseemgel.cirroseemgel.model.dao.DaoFactory;
 import cirroseemgel.cirroseemgel.model.dao.TextoDao;
 import cirroseemgel.cirroseemgel.model.entities.Texto;
 import cirroseemgel.cirroseemgel.util.LocalDateTimeFormatter;
-import cirroseemgel.cirroseemgel.util.OpcaoInvalidaScreen;
+import cirroseemgel.cirroseemgel.util.InvalidOptionScreen;
 
 import java.util.List;
 import java.util.Scanner;
@@ -82,7 +82,7 @@ public class LatestTextsScreenService {
             }
             TextCompleteScreenService.textCompleteScreen(selectedText.getId());
         } else {
-            OpcaoInvalidaScreen.OpcaoInvalidaScreen();
+            InvalidOptionScreen.OpcaoInvalidaScreen();
             LastestTextsScreen(numberOfTextsToLoad);
         }
     }

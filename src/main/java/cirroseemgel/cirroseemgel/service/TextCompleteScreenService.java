@@ -23,7 +23,7 @@ public class TextCompleteScreenService {
         ComentarioDao comentarioDao = DaoFactory.createComentarioDao();
         List<Curtida> likes = curtidaDao.findByTextoId(textoId);
         List<Comentario> comments = comentarioDao.findByTextoId(textoId);
-        TextoDao textoDao = DaoFactory.createTextDao();
+        TextoDao textoDao = DaoFactory.createTextoDao();
         Texto text = textoDao.findById(textoId);
         if (LoginScreenService.hasLoggedUser) {
             hasUserLikedThisText = likes.stream().anyMatch(curtida -> curtida.getAutor().getId().equals(LoginScreenService.loggedUser.getId()));

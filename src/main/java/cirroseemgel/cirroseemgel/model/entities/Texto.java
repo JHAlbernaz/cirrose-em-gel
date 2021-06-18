@@ -39,4 +39,7 @@ public class Texto {
 
     }
 
+    public void addVisualizacao() {
+        numeroVisualizacoes++;
+    }
 }

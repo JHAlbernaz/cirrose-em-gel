@@ -5,6 +5,7 @@ import cirroseemgel.cirroseemgel.db.DbException;
 import cirroseemgel.cirroseemgel.model.dao.ComentarioDao;
 import cirroseemgel.cirroseemgel.model.entities.Comentario;
 import cirroseemgel.cirroseemgel.model.mappers.ComentarioMapper;
+import cirroseemgel.cirroseemgel.service.CommentsScreenService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,13 +32,13 @@ public class ComentarioDaoJDBC implements ComentarioDao {
             );
             st.setString(1, UUID.randomUUID().toString());
             st.setString(2, comentario.getConteudo());
-            st.setTimestamp(2, Timestamp.valueOf(comentario.getData()));
-            st.setString(3, comentario.getTexto().getId());
-            st.setString(4, comentario.getAutor().getId());
+            st.setTimestamp(3, Timestamp.valueOf(comentario.getData()));
+            st.setString(4, comentario.getTexto().getId());
+            st.setString(5, comentario.getAutor().getId());
 
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Comentario inserido com sucesso!");
+                CommentsScreenService.commentAddedOrUpdatedOrDeletedSucessfully("Adicionado");
             } else {
                 throw new DbException("Unexpected error! No rows affected!");
             }
@@ -55,6 +56,7 @@ public class ComentarioDaoJDBC implements ComentarioDao {
             st = conn.prepareStatement("DELETE FROM COMENTARIO WHERE id = ?");
             st.setString(1, id);
             st.executeUpdate();
+            CommentsScreenService.commentAddedOrUpdatedOrDeletedSucessfully("Deletado");
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {
@@ -141,4 +143,23 @@ public class ComentarioDaoJDBC implements ComentarioDao {
         }
     }
 
+    @Override
+    public void updateCommentContent(Comentario comment) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement(
+                    "UPDATE COMENTARIO " +
+                            "SET conteudo = ? " +
+                            "WHERE id = ?"
+            );
+            st.setString(1, comment.getConteudo());
+            st.setString(2, comment.getId());
+            st.executeUpdate();
+            CommentsScreenService.commentAddedOrUpdatedOrDeletedSucessfully("Atualizado");
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
+    }
 }

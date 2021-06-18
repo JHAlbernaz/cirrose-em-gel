@@ -4,7 +4,7 @@ import cirroseemgel.cirroseemgel.model.dao.DaoFactory;
 import cirroseemgel.cirroseemgel.model.dao.UsuarioDao;
 import cirroseemgel.cirroseemgel.model.entities.Usuario;
 import cirroseemgel.cirroseemgel.util.EmailValidator;
-import cirroseemgel.cirroseemgel.util.OpcaoInvalidaScreen;
+import cirroseemgel.cirroseemgel.util.InvalidOptionScreen;
 
 import java.util.Scanner;
 
@@ -150,7 +150,7 @@ public class RegisterScreenService {
 
         if (escolhaDoUsuario <= 0 || escolhaDoUsuario >= 3) {
 
-            OpcaoInvalidaScreen.OpcaoInvalidaScreen();
+            InvalidOptionScreen.OpcaoInvalidaScreen();
 
             return signEmailNotificationsScreen();
 

@@ -12,5 +12,6 @@ public interface ComentarioDao {
     List<Comentario> findByUsuarioId(String usuarioId);
     List<Comentario> findByTextoId(String textoId);
     int getNumberOfComentariosByTextoId(String textoId);
+    void updateCommentContent(Comentario comment);
 
 }

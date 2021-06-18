@@ -103,6 +103,7 @@ public class LoginScreenService {
                 System.out.println("|                                   |");
                 System.out.println("+ --------------------------------- +");
                 loggedUser = user;
+                hasLoggedUser = true;
 
                 String loggedUserId = loggedUser.getId();
 
