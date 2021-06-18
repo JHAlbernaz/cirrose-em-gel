@@ -119,7 +119,6 @@ public class LoginScreenService {
 
             } else {
                 System.out.println("Nenhum usuario encontrado com esse login! Tente novamente!");
-                scanner.close();
                 loginScreen();
             }
         } else {
@@ -128,7 +127,6 @@ public class LoginScreenService {
             System.out.println("|    Email inserido é invalido!     |");
             System.out.println("|                                   |");
             System.out.println("+ --------------------------------- +");
-            scanner.close();
             loginScreen();
         }
     }
