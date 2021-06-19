@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class TextCompleteScreenService {
 
     public static void textCompleteScreen(String textoId) {
+
         boolean hasUserLikedThisText = false;
         CurtidaDao curtidaDao = DaoFactory.createCurtidaDao();
         ComentarioDao comentarioDao = DaoFactory.createComentarioDao();
@@ -25,32 +26,68 @@ public class TextCompleteScreenService {
         List<Comentario> comments = comentarioDao.findByTextoId(textoId);
         TextoDao textoDao = DaoFactory.createTextoDao();
         Texto text = textoDao.findById(textoId);
+
         if (LoginScreenService.hasLoggedUser) {
+
             hasUserLikedThisText = likes.stream().anyMatch(curtida -> curtida.getAutor().getId().equals(LoginScreenService.loggedUser.getId()));
+
         }
         showTextoWithCompleteInfo(text, comments.size(), likes.size(), hasUserLikedThisText);
+
         int acaoTomada = showPossibleActions(hasUserLikedThisText);
 
         if (LoginScreenService.hasLoggedUser) {
+
+            String userId = LoginScreenService.loggedUser.getId();
+            boolean userIsOwner = userId.equals(LoginScreenService.ownerID);
+
             if (acaoTomada == 1) {
+
                 if (hasUserLikedThisText) {
+
                     String likeIdToBeDeleted = likes.stream().filter(curtida -> curtida.getAutor().getId().equals(LoginScreenService.loggedUser.getId())).collect(Collectors.toList()).get(0).getId();
                     curtidaDao.deleteById(likeIdToBeDeleted);
                     showLikedOrDislkedMessage("Curtido!");
+
                 } else {
+
                     Curtida curtida = new Curtida();
                     curtida.setTexto(text);
                     curtida.setAutor(LoginScreenService.loggedUser);
                     curtida.setData(LocalDateTime.now());
                     curtidaDao.insert(curtida);
                     showLikedOrDislkedMessage("Descurtido!");
+
                 }
+
                 textCompleteScreen(textoId);
+
             } else if (acaoTomada == 2) {
+
                 CommentsScreenService.commentScreen(textoId);
+
             } else if (acaoTomada == 3) {
+
+                if (!userIsOwner) {
+
+                    LatestTextsScreenService.LastestTextsScreen(3);
+
+                } else {
+
+                    TextEditorScreenService.editionOptionsScreen(text);
+
+                }
+
+            } else if (acaoTomada == 4 && userIsOwner) {
+
+                TextDeletionScreenService.textDeletionMainScreen(text);
+
+            } else if (acaoTomada == 5 && userIsOwner) {
+
                 LatestTextsScreenService.LastestTextsScreen(3);
+
             }
+
         } else {
             if (acaoTomada == 1) {
                 CommentsScreenService.commentScreen(textoId);
@@ -80,19 +117,39 @@ public class TextCompleteScreenService {
     }
 
     public static int showPossibleActions(boolean hasUserLikedThisText) {
+
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("|   O que desejas fazer?            |");
         System.out.println("|                                   |");
+
         int numberOfInitialActions = 1;
+
         if (hasUserLikedThisText && LoginScreenService.hasLoggedUser) {
-            System.out.println("|   " + numberOfInitialActions + " - Descurtir                   |");
+
+            System.out.println("|   1 - Descurtir                   |");
+
             numberOfInitialActions++;
+
         } else if (LoginScreenService.hasLoggedUser) {
+
             System.out.println("|   1 - Curtir                      |");
+
             numberOfInitialActions++;
+
         }
-        System.out.println("|   " + numberOfInitialActions + " - Ver comentarios             |");
+
+        System.out.println("|   2 - Ver comentarios             |");
+
         numberOfInitialActions++;
+
+        String loggedUserId = LoginScreenService.loggedUser.getId();
+
+        if (loggedUserId.equals(LoginScreenService.ownerID)) {
+            System.out.println("|   3 - Editar texto.                |");
+            System.out.println("|   4 - Deletar texto.               |");
+            numberOfInitialActions+=2;
+        }
         System.out.println("|   " + numberOfInitialActions + " - Sair                        |");
         System.out.println("|                                   |");
         System.out.println("|   Digite o número da ação         |");

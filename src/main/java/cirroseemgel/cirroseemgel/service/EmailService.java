@@ -38,7 +38,7 @@ public class EmailService {
             try {
                 email.setFrom(EMAIL);
                 email.setSubject("Cirrose Em Gel - Nova Publicação");
-                email.setMsg("O texto " + texto.getTitulo() + " esta disponivel no CeG!");
+                email.setMsg("Olá! Um novo texto foi publicado no CeG! " + texto.getTitulo() + " já esta disponível!");
                 email.addTo(userEmail);
                 email.send();
                 usersNotified(usersEmails.size(), i);
@@ -49,10 +49,12 @@ public class EmailService {
     }
 
     private static void usersNotified(int totalUsers, int actualUser) {
+
         actualUser++;
         System.out.println("+ --------------------------------- +");
         System.out.println("|    Usuarios notificados : " + actualUser + "       |");
         System.out.println("|    Total a ser notificado: " + totalUsers + "      |");
         System.out.println("+ --------------------------------- +");
+
     }
 }

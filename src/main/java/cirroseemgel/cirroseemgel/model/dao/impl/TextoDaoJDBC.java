@@ -77,13 +77,19 @@ public class TextoDaoJDBC implements TextoDao {
     @Override
     public void deleteById(String id) {
         PreparedStatement st = null;
+
         try {
+
             st = conn.prepareStatement("DELETE FROM TEXTO WHERE id = ?");
             st.setString(1, id);
             st.executeUpdate();
+
         } catch (SQLException e) {
+
             throw new DbException(e.getMessage());
+
         } finally {
+
             DB.closeStatement(st);
         }
     }

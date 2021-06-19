@@ -16,6 +16,7 @@ public class LatestTextsScreenService {
     public static void LastestTextsScreen(int numberOfTextsToLoad) {
 
         Scanner scanner = new Scanner(System.in);
+
         int acaoUsuario;
         TextoDao textoDao = DaoFactory.createTextoDao();
         CurtidaDao curtidaDao = DaoFactory.createCurtidaDao();
@@ -86,4 +87,5 @@ public class LatestTextsScreenService {
             LastestTextsScreen(numberOfTextsToLoad);
         }
     }
+
 }
